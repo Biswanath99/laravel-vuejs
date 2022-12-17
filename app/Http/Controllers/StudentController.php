@@ -15,6 +15,7 @@ class StudentController extends Controller
         $addStudent->studentEmailId   =  $request->studentEmailId; 
         $addStudent->studentContactNo =  $request->studentContactNo;
         $addStudent->save();
+        
         return array('success' => true, 'msg'=>['Student created successfully']);
     }
 

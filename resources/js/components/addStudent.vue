@@ -4,7 +4,7 @@
     <h1 v-if="this.form.id !=''">Edit Student</h1>
     <h1 v-else>Add Student</h1>
 
-    <form @submit.prevent="saveStudent">
+    <form @submit.prevent="saveStudent()">
        
         <div class="row">
             <div class="col-xl-3">
@@ -73,6 +73,9 @@
                 {
                     axios.post('/api/update-student/'+this.form.id, this.form)
                          .then((response) => {
+                            this.$router.push({ 
+                                path:'/view-student',
+                            });
                             if(response.data['success'])
                             {
                                 this.$swal({
@@ -120,7 +123,7 @@
             {
                 const currentUrl = window.location.pathname;
                 axios.get('/api'+currentUrl)
-                     .then(response => this.form = {
+                     .then((response) => this.form = {
                         id                    : response.data.id,
                         studentFName          : response.data.studentFName,
                         studentLName          : response.data.studentLName,

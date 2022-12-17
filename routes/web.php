@@ -34,5 +34,5 @@ Route::group(['prefix' => 'api'], function(){
       Route::get('/get-all-student'       ,[StudentController::class,'allStudent']);
       Route::get('/edit-student/{Id}'     ,[StudentController::class,'editStudent']);
       Route::post('/update-student/{Id}'  ,[StudentController::class,'updateStudent']);
-      Route::get('/delete-student/{Id}'   ,[StudentController::class,'deleteStudent']);
+      Route::get('/del-student/{Id}'      ,[StudentController::class,'deleteStudent']);
  });

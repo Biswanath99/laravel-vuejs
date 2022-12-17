@@ -20,8 +20,8 @@
                     <td>{{eachStudent.studentEmailId}}</td>
                     <td>{{eachStudent.studentContactNo}}</td>
                     <td>
-                        <router-link :to="'/edit-student/'+eachStudent.id" class="btn btn-success btn-sm btn-rounded"><i class="fa fa-edit"></i></router-link>
-                        <router-link :to="'/del-student/'+eachStudent.id"  class="btn btn-danger  btn-sm btn-rounded"><i class="fa fa-trash"></i></router-link>
+                        <router-link :to="'/edit-student/'+eachStudent.id" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></router-link>
+                        <button type="button" @click="deleteStudent(eachStudent.id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
            
@@ -38,13 +38,6 @@
         data(){
             return {
               allStudents:{},
-              form:
-              {
-                studentFName     : '',
-                studentLName     : '',
-                studentEmailId   : '',
-                studentContactNo : ''
-              },
             }
         },
         
@@ -57,6 +50,28 @@
                         this.allStudents = response.data
                     });
             },
+
+            deleteStudent(studentId)
+            {
+                axios.get('/api/del-student/'+studentId)
+                     .then((response) => {
+                            this.$router.push({ 
+                                path:'/view-student',
+                            });
+                            if(response.data['success'])
+                            {
+                                this.$swal({
+                                    icon: "success",
+                                    title: " " + response.data["msg"][0],
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 4000,
+                                });
+                            } 
+                            this.viewStudents();
+                        });
+            }
 
         },
         created() 
